@@ -1,45 +1,32 @@
-import { Gif, mockGifs } from "./Mocks/gifs.mocks";
+import GenericHeader from "./shared/components/GenericHeader";
+import GenericSearch from "./shared/components/GenericSearch";
+import PreviousSearches from "./gifs/components/PreviousSearches";
+import { mockGifs } from "./mocks/gifs.mocks";
+import GifList from "./gifs/components/GifList";
+import { useState } from "react";
 
-const GifsApp = () =>{
+const GifsApp = () => {
+    const [previousSearches, setPreviousSearches] = useState(['gatos']);
+
+    const handleQuerySearch = (term: string) => {
+        console.info('searched term: ' + term);
+        setPreviousSearches([term]);
+    }
+    const handleTermClicked = (term: string) => (console.log(term));
+
     return (
         <>
             {/* Header */}
-            <div className="content-center">
-                <h1>Buscador de Gifs</h1>
-                <p>Encuentra los mejores gifs aqui</p>
-            </div>
+            <GenericHeader title="Buscador de Gifs" subtitle="Encuentra los mejores gifs aqui" />
 
             {/* Search */}
-            <div className="search-container">
-                <input type="text" placeholder="Buscar gifs..." />
-                <button>Buscar</button>
-            </div>
+            <GenericSearch buttonText="Buscar" placeholder="Buscar gifs..." onQuery = {handleQuerySearch} />
 
             {/* busquedas previas */}
-            <div className="previous-searches">
-                <h2>Busquedas Previas</h2>
-                <ul className="previous-searches-list">
-                    <li>Goku</li>
-                    <li>Vegeta</li>
-                    <li>Piccolo</li>
-                    <li>Freezer</li>
-                </ul>
-            </div>
-            {/* List of Gifs */}
-            <div className="gifs-container">
-                {
-                    mockGifs.map( (gif:Gif) => {
-                        return (
-                            <div key={gif.id} className = "gif-card">
-                                <img src={gif.url} alt= {gif.title} />
-                                <h3>{gif.title}</h3>
-                                <p>{gif.width} x {gif.height} (1.5mb)</p>
-                            </div>
-                        );
-                    })
-                }
-            </div>
+            <PreviousSearches key='previousSearch' searches={previousSearches} onLabelClicked={handleTermClicked} />
 
+            {/* List of Gifs */}
+            <GifList key='gifList' gifs={mockGifs} />
         </>
     );
 
