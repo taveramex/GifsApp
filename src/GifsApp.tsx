@@ -9,9 +9,22 @@ const GifsApp = () => {
     const [previousSearches, setPreviousSearches] = useState(['gatos']);
 
     const handleQuerySearch = (term: string) => {
-        console.info('searched term: ' + term);
-        setPreviousSearches([term]);
+        // Trim and COnvert to lower cases
+        term = term.trim().toLowerCase();
+        // ignore empty terms
+        if(!term) return;
+
+        const updated = [...previousSearches];
+
+        if(!updated.includes(term)){
+            if (updated.length >= 8){
+                updated.shift();
+            }
+            updated.push(term);
+            setPreviousSearches(updated);
+        }
     }
+
     const handleTermClicked = (term: string) => (console.log(term));
 
     return (

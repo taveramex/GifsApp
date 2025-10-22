@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 interface Props {
     placeholder?: string,
@@ -7,6 +7,16 @@ interface Props {
 }
 const GenericSearch: FC<Props> = ({ buttonText = "Search", placeholder = "generic search", onQuery }) => {
     const [query, setQuery] = useState("");
+    
+    useEffect(()=>{
+        const timeOutId = setTimeout(() =>{
+            onQuery(query);
+        },700);
+        return ()=>{
+            console.log('reset timer');
+            clearTimeout(timeOutId);
+        };
+    },[query, onQuery]);
 
     const handleQuerySearch = () => {
         onQuery(query);
