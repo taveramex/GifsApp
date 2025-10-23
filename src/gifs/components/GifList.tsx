@@ -1,4 +1,5 @@
-import GifItem, { Gif } from "./GifItem";
+import { Gif } from "../interfaces/gif.interface";
+import GifItem from "./GifItem";
 
 interface Props{
     gifs: Gif[]

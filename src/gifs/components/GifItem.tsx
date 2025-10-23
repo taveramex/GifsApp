@@ -1,10 +1,4 @@
-export interface Gif {
-    id: string;
-    title: string;
-    url: string;
-    width: number;
-    height: number;
-}
+import { Gif } from "../interfaces/gif.interface"
 
 const GifItem = (gif:Gif) => {
     return (
